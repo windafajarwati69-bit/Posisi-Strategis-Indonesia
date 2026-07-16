@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Asesmen Awal Geografi Kelas XI - SMAN 1 Majalengka</title>
+    <!-- Menggunakan Tailwind CSS untuk desain modern -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+        /* Animasi halus untuk progress bar */
+        .progress-transition {
+            transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        /* Gaya kustom saat radio button terpilih */
+        .custom-radio:checked + div {
+            border-color: #059669;
+            background-color: #f0fdf4;
+            box-shadow: 0 10px 15px -3px rgba(16, 185, 129, 0.1), 0 4px 6px -2px rgba(16, 185, 129, 0.05);
+            transform: translateY(-2px);
+        }
+        @media print {
+            .no-print {
+                display: none !important;
+            }
+            body {
+                background-color: white;
+            }
+            .print-card {
+                border: 1px solid #e5e7eb;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800 min-h-screen pb-16 print:bg-white print:pb-0">
+
+    <!-- Progress Bar Interaktif (Disembunyikan saat dicetak) -->
+    <div class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-200 py-3 px-4 shadow-sm no-print">
+        <div class="max-w-4xl mx-auto flex items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+                <span class="text-xs font-extrabold text-emerald-800 bg-emerald-100 px-2.5 py-1 rounded-lg tracking-wider">MISI JELAJAH</span>
+                <span id="progress-text" class="text-sm font-black text-slate-700">0%</span>
+            </div>
+            <div class="flex-grow max-w-md bg-slate-150 h-3 rounded-full overflow-hidden border border-slate-200/50">
+                <div id="progress-bar" class="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 h-full w-0 progress-transition rounded-full"></div>
+            </div>
+            <div class="hidden sm:flex items-center gap-1.5 text-xs font-semibold text-slate-500">
+                <span id="status-badge" class="bg-slate-100 text-slate-600 px-3 py-1 rounded-full border border-slate-200">Kadet Terdaftar 🧭</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header / Banner Utama -->
+    <header class="bg-gradient-to-br from-emerald-950 via-emerald-900 to-teal-850 text-white py-14 px-6 shadow-xl relative overflow-hidden print:bg-none print:text-slate-900 print:shadow-none print:border-b print:border-slate-300 print:py-6">
+        <!-- Pola Grid Dekoratif -->
+        <div class="absolute inset-0 opacity-10 pointer-events-none no-print">
+            <svg class="w-full h-full" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                        <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" stroke-width="1"/>
+                    </pattern>
+                </defs>
+                <rect width="100%" height="100%" fill="url(#grid)" />
+            </svg>
+        </div>
+
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 relative z-10">
+            <div class="text-center md:text-left">
+                <div class="flex flex-wrap items-center justify-center md:justify-start gap-2 mb-4">
+                    <span class="bg-emerald-500/20 text-emerald-300 text-xs font-bold px-3 py-1 rounded-full border border-emerald-400/30 uppercase tracking-widest print:border print:border-slate-400 print:text-slate-800">
+                        Geografi - Fase F
+                    </span>
+                    <span class="bg-teal-500/20 text-teal-300 text-xs font-bold px-3 py-1 rounded-full border border-teal-400/30 uppercase tracking-widest print:border print:border-slate-400 print:text-slate-800">
+                        Kelas XI
+                    </span>
+                </div>
+                <h1 class="text-3xl md:text-5xl font-black tracking-tight leading-tight">Singkap Potensi Nusantara <br>& Tanah Airku</h1>
+                <p class="text-emerald-100/80 text-sm md:text-base mt-3 font-light max-w-xl leading-relaxed print:text-slate-600">
+                    Selamat datang di ekspedisi awal semester! Mari kita telusuri rahasia letak strategis Indonesia serta megahnya potensi alam di sekeliling kita, dari lautan nasional hingga keindahan lokal Majalengka.
+                </p>
+                <p class="text-xs text-emerald-300 mt-4 font-bold tracking-widest uppercase print:text-slate-700">
+                    SMAN 1 MAJALENGKA • TAHUN AJARAN 2026/2027
+                </p>
+            </div>
+            <div class="text-center md:text-right no-print shrink-0">
+                <button onclick="window.print()" class="bg-white hover:bg-emerald-50 text-emerald-950 font-extrabold px-6 py-3.5 rounded-xl shadow-lg transition-all duration-200 flex items-center gap-2 text-sm mx-auto">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+                    </svg>
+                    Cetak Lembar Jawaban
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 mt-8 space-y-8">
+
+        <!-- Form Identitas Siswa -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200 print-card">
+            <h2 class="text-lg font-bold text-slate-900 border-b pb-3 mb-4 flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-emerald-600 rounded-full inline-block"></span>
+                Identitas Penjelajah
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Nama Lengkap Siswa</label>
+                    <input id="input-nama" type="text" placeholder="Tulis nama lengkapmu di sini..." class="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all placeholder:text-slate-400 font-medium bg-slate-50/50 focus:bg-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider mb-1">Kelas (Tahun Ajaran 2026/2027)</label>
+                    <select id="input-kelas" class="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all font-medium bg-slate-50/50 focus:bg-white">
+                        <option value="">-- Pilih Kelas XI --</option>
+                        <option value="XI-1">XI - 1</option>
+                        <option value="XI-2">XI - 2</option>
+                        <option value="XI-3">XI - 3</option>
+                        <option value="XI-4">XI - 4</option>
+                        <option value="XI-5">XI - 5</option>
+                        <option value="XI-6">XI - 6</option>
+                        <option value="XI-7">XI - 7</option>
+                        <option value="XI-8">XI - 8</option>
+                        <option value="XI-9">XI - 9</option>
+                        <option value="XI-10">XI - 10</option>
+                        <option value="XI-11">XI - 11</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <!-- MATERI PEMICU LITERASI VISUAL -->
+        <section class="space-y-6">
+            <div class="flex items-center gap-4">
+                <hr class="flex-grow border-slate-300">
+                <span class="text-slate-500 font-extrabold uppercase tracking-widest text-xs flex items-center gap-1.5">
+                    <span class="text-base">📸</span> Galeri Pemantik Geografis
+                </span>
+                <hr class="flex-grow border-slate-300">
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <!-- Card 1: Poros Maritim (Menggunakan gambar Posisi Silang) -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 group hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+                    <div class="relative overflow-hidden bg-slate-100 aspect-[4/3] flex items-center justify-center">
+                        <img src="Posisi silang.jpeg" alt="Peta Posisi Silang Indonesia" class="w-full h-full object-contain group-hover:scale-102 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1524661135-423995f22d0b?auto=format&fit=crop&w=800&q=80';">
+                        <span class="absolute top-3 left-3 bg-red-600 text-white text-[10px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider shadow-md">
+                            Materi 1: Global
+                        </span>
+                    </div>
+                    <div class="p-5 flex-grow border-t border-slate-100">
+                        <h3 class="text-lg font-extrabold text-slate-900 mb-2">Posisi Silang Strategis Indonesia</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Coba perhatikan tanda panah merah silang pada peta di atas. Indonesia berada tepat di titik pertemuan silang antara Benua Asia & Australia serta Samudra Hindia & Pasifik. Ini bukan sekadar letak geografis biasa, melainkan jalur emas transit perdagangan internasional terkunci di bawah kekuasaan perairan kita!
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Card 2: SDA Majalengka -->
+                <div class="bg-white rounded-2xl overflow-hidden shadow-sm border border-slate-200 group hover:shadow-md transition-all duration-300 flex flex-col justify-between">
+                    <div class="relative overflow-hidden bg-slate-100 aspect-[4/3] flex items-center justify-center">
+                        <img src="Terasering Panyaweuyan.jpeg" alt="Terasering Panyaweuyan Majalengka" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=800&q=80';">
+                        <span class="absolute top-3 left-3 bg-emerald-600 text-white text-[10px] font-black px-2.5 py-1 rounded-md uppercase tracking-wider shadow-md">
+                            Materi 2: Lokal
+                        </span>
+                    </div>
+                    <div class="p-5 flex-grow border-t border-slate-100">
+                        <h3 class="text-lg font-extrabold text-emerald-800 mb-2">Potensi Alam Majalengka</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">
+                            Inilah terasering ikonik Panyaweuyan yang terbentang megah di lereng kaki Gunung Ciremai, Kabupaten Majalengka. Pola pertanian yang rapi ini mencerminkan tingginya kesuburan tanah vulkanik lokal kita serta kecakapan mitigasi bencana tanah longsor yang diwariskan dari generasi ke generasi.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN A: ASESMEN NON-KOGNITIF -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 print-card">
+            <h2 class="text-lg font-bold text-slate-900 border-b pb-3 mb-4 flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-emerald-600 rounded-full inline-block"></span>
+                Bagian A: Kesiapan Belajar & Gaya Belajar (Non-Kognitif)
+            </h2>
+            <p class="text-xs text-slate-500 mb-6 italic">Isian di bawah ini dirancang khusus agar Bapak/Ibu guru dapat mengenal gaya belajar serta keadaan emosi dirimu agar proses belajar nanti tidak membosankan.</p>
+
+            <div class="space-y-6">
+                <!-- Pertanyaan 1 -->
+                <div>
+                    <p class="font-semibold text-slate-800 text-sm mb-3">1. Pilih emoji yang paling pas mengekspresikan suasana hatimu saat ini untuk memulai perjalanan Geografi:</p>
+                    <div class="grid grid-cols-3 gap-3">
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="perasaan" value="senang" class="absolute opacity-0 custom-radio" onclick="updateProgress()">
+                            <div class="border-2 border-slate-100 rounded-xl p-4 flex flex-col items-center justify-center gap-2 hover:bg-slate-50 hover:border-slate-300 transition-all text-center">
+                                <span class="text-3xl block transform group-hover:scale-110 transition-transform">🔥</span>
+                                <span class="text-[10px] sm:text-xs font-bold text-slate-600">Sangat Bersemangat</span>
+                            </div>
+                        </label>
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="perasaan" value="biasa" class="absolute opacity-0 custom-radio" onclick="updateProgress()">
+                            <div class="border-2 border-slate-100 rounded-xl p-4 flex flex-col items-center justify-center gap-2 hover:bg-slate-50 hover:border-slate-300 transition-all text-center">
+                                <span class="text-3xl block transform group-hover:scale-110 transition-transform">☕</span>
+                                <span class="text-[10px] sm:text-xs font-bold text-slate-600">Biasa Saja / Butuh Kopi</span>
+                            </div>
+                        </label>
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="perasaan" value="lelah" class="absolute opacity-0 custom-radio" onclick="updateProgress()">
+                            <div class="border-2 border-slate-100 rounded-xl p-4 flex flex-col items-center justify-center gap-2 hover:bg-slate-50 hover:border-slate-300 transition-all text-center">
+                                <span class="text-3xl block transform group-hover:scale-110 transition-transform">💤</span>
+                                <span class="text-[10px] sm:text-xs font-bold text-slate-600">Lelah / Kurang Fokus</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Pertanyaan 2 -->
+                <div>
+                    <p class="font-semibold text-slate-800 text-sm mb-3">2. Ketika disuguhkan keindahan Terasering Panyaweuyan pada gambar di atas, metode eksplorasi mana yang paling menarik buatmu?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="gaya_belajar" value="visual" class="absolute opacity-0 custom-radio" onclick="updateProgress()">
+                            <div class="border-2 border-slate-100 rounded-xl p-4 flex gap-3 hover:bg-slate-50 hover:border-slate-300 transition-all h-full">
+                                <div>
+                                    <span class="text-xs font-black text-emerald-800 block uppercase tracking-wider mb-1">🖼️ Metode Visual</span>
+                                    <span class="text-[11px] text-slate-500 leading-relaxed block">Lebih gampang menyerap materi lewat pemetaan warna, foto satelit, infografis, dan video petualangan geografi.</span>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="gaya_belajar" value="auditori" class="absolute opacity-0 custom-radio" onclick="updateProgress()">
+                            <div class="border-2 border-slate-100 rounded-xl p-4 flex gap-3 hover:bg-slate-50 hover:border-slate-300 transition-all h-full">
+                                <div>
+                                    <span class="text-xs font-black text-emerald-800 block uppercase tracking-wider mb-1">🎙️ Metode Auditori</span>
+                                    <span class="text-[11px] text-slate-500 leading-relaxed block">Lebih mudah paham melalui dengerin penjelasan lisan guru, diskusi seru berkelompok, atau mendengarkan rekaman podcast edukatif.</span>
+                                </div>
+                            </div>
+                        </label>
+                        <label class="relative cursor-pointer group">
+                            <input type="radio" name="gaya_belajar" value="kinestetik" class="absolute opacity-0 custom-radio" onclick="updateProgress()">
+                            <div class="border-2 border-slate-100 rounded-xl p-4 flex gap-3 hover:bg-slate-50 hover:border-slate-300 transition-all h-full">
+                                <div>
+                                    <span class="text-xs font-black text-emerald-800 block uppercase tracking-wider mb-1">🎒 Metode Kinestetik</span>
+                                    <span class="text-[11px] text-slate-500 leading-relaxed block">Suka bersentuhan langsung dengan objek contoh tanah/batuan, eksperimen erosi air, dan eksplorasi lingkungan lapangan.</span>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- BAGIAN B: ASESMEN KOGNITIF -->
+        <section class="bg-white p-6 rounded-2xl shadow-sm border border-slate-200/80 print-card">
+            <h2 class="text-lg font-bold text-slate-900 border-b pb-3 mb-4 flex items-center gap-2">
+                <span class="w-2.5 h-6 bg-emerald-600 rounded-full inline-block"></span>
+                Bagian B: Tantangan Pemikiran Geografis (Kognitif)
+            </h2>
+            <p class="text-xs text-slate-500 mb-6 italic">Jawablah pertanyaan pemantik di bawah ini semampumu secara jujur. Jangan khawatir, hasil evaluasi awal ini murni digunakan untuk merancang porsi tantangan belajar kelas.</p>
+
+            <div class="space-y-6">
+                <!-- Soal 1 -->
+                <div>
+                    <span class="inline-block bg-emerald-50 text-emerald-855 text-[10px] font-black px-2.5 py-1 rounded-md mb-2 uppercase tracking-wide">
+                        Tantangan 1 - Analisis Posisi Silang
+                    </span>
+                    <p class="font-medium text-slate-800 text-sm mb-2">Amati peta "Posisi Silang Indonesia" di atas. Dengan diapit oleh samudera raksasa dan benua besar, jelaskan keuntungan nyata yang didapatkan oleh masyarakat pesisir di kepulauan Indonesia dalam bidang perdagangan maritim!</p>
+                    <textarea id="soal-1" rows="3" placeholder="Tuliskan analisis atau pendapat rasionalmu di sini..." class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all text-sm placeholder:text-slate-400 font-medium bg-slate-50/50 focus:bg-white"></textarea>
+                </div>
+
+                <!-- Soal 2 -->
+                <div>
+                    <span class="inline-block bg-emerald-50 text-emerald-855 text-[10px] font-black px-2.5 py-1 rounded-md mb-2 uppercase tracking-wide">
+                        Tantangan 2 - Pengaruh Iklim Tropis
+                    </span>
+                    <p class="font-medium text-slate-800 text-sm mb-2">Indonesia dilalui garis ekuator (tropis) sehingga menerima pancaran matahari dan curah hujan tinggi sepanjang tahun. Analisislah keuntungan ekologis ini terhadap tingkat keberagaman flora dan fauna di kawasan hutan tropis kita!</p>
+                    <textarea id="soal-2" rows="3" placeholder="Mengapa hutan kita begitu rimbun dan dihuni banyak spesies hewan khas?" class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all text-sm placeholder:text-slate-400 font-medium bg-slate-50/50 focus:bg-white"></textarea>
+                </div>
+
+                <!-- Soal 3 -->
+                <div>
+                    <span class="inline-block bg-emerald-50 text-emerald-855 text-[10px] font-black px-2.5 py-1 rounded-md mb-2 uppercase tracking-wide">
+                        Tantangan 3 - Klasifikasi Karakteristik SDA
+                    </span>
+                    <p class="font-medium text-slate-800 text-sm mb-3">Tunjukkan kejelianmu! Pilah pengelompokan sumber daya alam berikut dengan mengklik salah satu opsi yang paling cocok:</p>
+                    <div class="space-y-3 pl-1">
+                        <!-- Sub-pertanyaan A -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 py-2.5 border-b border-dashed border-slate-100">
+                            <span class="text-xs font-semibold text-slate-700">a. Minyak bumi, batu bara, dan emas di perut bumi</span>
+                            <div class="flex gap-4">
+                                <label class="inline-flex items-center text-xs text-slate-600 gap-1.5 cursor-pointer" onclick="updateProgress()">
+                                    <input type="radio" name="sda_1" value="dapat_diperbarui" class="accent-emerald-600"> Dapat diperbarui
+                                </label>
+                                <label class="inline-flex items-center text-xs text-slate-600 gap-1.5 cursor-pointer" onclick="updateProgress()">
+                                    <input type="radio" name="sda_1" value="tidak_dapat_diperbarui" class="accent-emerald-600"> Tidak dapat diperbarui
+                                </label>
+                            </div>
+                        </div>
+                        <!-- Sub-pertanyaan B -->
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 py-2.5 border-b border-dashed border-slate-100">
+                            <span class="text-xs font-semibold text-slate-700">b. Tanaman bawang merah di Panyaweuyan, ikan tangkapan, dan pohon jati</span>
+                            <div class="flex gap-4">
+                                <label class="inline-flex items-center text-xs text-slate-600 gap-1.5 cursor-pointer" onclick="updateProgress()">
+                                    <input type="radio" name="sda_2" value="dapat_diperbarui" class="accent-emerald-600"> Dapat diperbarui
+                                </label>
+                                <label class="inline-flex items-center text-xs text-slate-600 gap-1.5 cursor-pointer" onclick="updateProgress()">
+                                    <input type="radio" name="sda_2" value="tidak_dapat_diperbarui" class="accent-emerald-600"> Tidak dapat diperbarui
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soal 4 -->
+                <div>
+                    <span class="inline-block bg-emerald-50 text-emerald-855 text-[10px] font-black px-2.5 py-1 rounded-md mb-2 uppercase tracking-wide">
+                        Tantangan 4 - Eksplorasi Potensi Lokal Majalengka
+                    </span>
+                    <p class="font-medium text-slate-800 text-sm mb-2">Berdasarkan keindahan alam Terasering Panyaweuyan di kaki Gunung Ciremai, sebutkan minimal **dua potensi sumber daya alam lokal** (wisata, pertanian, atau lainnya) di Kabupaten Majalengka yang paling layak dipromosikan ke tingkat nasional dan bagaimana kamu sebagai generasi muda ikut andil melestarikannya!</p>
+                    <textarea id="soal-4" rows="4" placeholder="Contoh: Mengembangkan pariwisata ramah lingkungan di lereng Ciremai tanpa merusak pertanian sayur warga setempat..." class="w-full px-4 py-3 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all text-sm placeholder:text-slate-400 font-medium bg-slate-50/50 focus:bg-white"></textarea>
+                </div>
+            </div>
+        </section>
+
+        <!-- Selesai Banner / Submit -->
+        <div class="bg-gradient-to-r from-emerald-955 via-emerald-900 to-teal-900 text-white rounded-3xl p-8 text-center space-y-4 shadow-xl no-print">
+            <div class="inline-flex items-center justify-center w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-300 text-2xl mb-1">
+                🚀
+            </div>
+            <h3 class="font-extrabold text-2xl tracking-tight">Kumpulkan Hasil Ekspedisi Kamu!</h3>
+            <p class="text-emerald-200/90 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed">
+                Jawaban kamu telah terekam secara sistematis pada lembar kerja digital ini. Sekarang, mari klik tombol di bawah untuk menyimpannya sebagai berkas PDF atau langsung mencetaknya untuk diserahkan ke Guru Geografi kelasmu.
+            </p>
+            <button onclick="window.print()" class="bg-white hover:bg-emerald-50 text-emerald-950 font-black px-7 py-3 rounded-xl shadow-md transition-all duration-200 inline-flex items-center gap-2 text-sm mt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-emerald-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Kirim & Cetak Jawaban
+            </button>
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-16 text-center text-xs text-slate-400 pb-10 print:mt-10 print:text-slate-500">
+        <p class="font-bold">&copy; 2026 SMAN 1 Majalengka. Dirancang khusus untuk Asesmen Awal Kurikulum Merdeka Geografi Kelas XI • TA 2026/2027.</p>
+        <p class="mt-1 text-[10px] opacity-75">Laboratorium Pembelajaran Geografi Terintegrasi Wilayah Kabupaten Majalengka.</p>
+    </footer>
+
+    <!-- Interactive Progress Tracker JavaScript -->
+    <script>
+        function updateProgress() {
+            const totalFields = 9;
+            let filledFields = 0;
+
+            // 1. Nama
+            if (document.getElementById('input-nama').value.trim() !== "") filledFields++;
+            // 2. Kelas
+            if (document.getElementById('input-kelas').value !== "") filledFields++;
+            // 3. Perasaan
+            if (document.querySelector('input[name="perasaan"]:checked')) filledFields++;
+            // 4. Gaya Belajar
+            if (document.querySelector('input[name="gaya_belajar"]:checked')) filledFields++;
+            // 5. Soal 1
+            if (document.getElementById('soal-1').value.trim() !== "") filledFields++;
+            // 6. Soal 2
+            if (document.getElementById('soal-2').value.trim() !== "") filledFields++;
+            // 7. SDA 1 (Radio)
+            if (document.querySelector('input[name="sda_1"]:checked')) filledFields++;
+            // 8. SDA 2 (Radio)
+            if (document.querySelector('input[name="sda_2"]:checked')) filledFields++;
+            // 9. Soal 4 (Esai Potensi Lokal)
+            if (document.getElementById('soal-4').value.trim() !== "") filledFields++;
+
+            // Hitung Persentase progres
+            let percentage = Math.round((filledFields / totalFields) * 100);
+
+            // Update DOM progres bar
+            const progressBar = document.getElementById('progress-bar');
+            const progressText = document.getElementById('progress-text');
+            const statusBadge = document.getElementById('status-badge');
+
+            progressBar.style.width = percentage + "%";
+            progressText.innerText = percentage + "%";
+
+            // Update status badge teks interaktif
+            if (percentage === 0) {
+                statusBadge.innerText = "Kadet Terdaftar 🧭";
+                statusBadge.className = "bg-slate-100 text-slate-600 px-3 py-1 rounded-full border border-slate-200";
+            } else if (percentage < 40) {
+                statusBadge.innerText = "Kadet Pengamat Peta 🗺️";
+                statusBadge.className = "bg-blue-100 text-blue-700 px-3 py-1 rounded-full border border-blue-200 font-semibold";
+            } else if (percentage < 80) {
+                statusBadge.innerText = "Penjelajah Nusantara Aktif 🚀";
+                statusBadge.className = "bg-amber-100 text-amber-700 px-3 py-1 rounded-full border border-amber-200 font-semibold animate-pulse";
+            } else if (percentage < 100) {
+                statusBadge.innerText = "Ahli Geografi Muda ⛰️";
+                statusBadge.className = "bg-indigo-100 text-indigo-700 px-3 py-1 rounded-full border border-indigo-200 font-semibold";
+            } else {
+                statusBadge.innerText = "Master Geografi Sejati! 🌟";
+                statusBadge.className = "bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full border border-emerald-200 font-bold";
+            }
+        }
+
+        // Event Listener untuk update progres real-time
+        document.getElementById('input-nama').addEventListener('input', updateProgress);
+        document.getElementById('input-kelas').addEventListener('change', updateProgress);
+        document.getElementById('soal-1').addEventListener('input', updateProgress);
+        document.getElementById('soal-2').addEventListener('input', updateProgress);
+        document.getElementById('soal-4').addEventListener('input', updateProgress);
+    </script>
+</body>
+</html>
