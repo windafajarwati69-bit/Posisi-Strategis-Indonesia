@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Petualangan Geografi XI - SMAN 1 Majalengka</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Fredoka (Cute & Rounded) & Nunito -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&family=Nunito:wght@300..1000&display=swap" rel="stylesheet">
+    
+    <style>
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: #f0f9ff;
+            background-image: radial-gradient(#bae6fd 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        h1, h2, h3, h4, .font-cute {
+            font-family: 'Fredoka', sans-serif;
+        }
+        .cute-card {
+            border: 4px solid #0f172a;
+            box-shadow: 8px 8px 0px #0f172a;
+            transition: all 0.2s ease;
+        }
+        .cute-card:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 10px 10px 0px #0f172a;
+        }
+        .cute-input {
+            border: 3px solid #0f172a;
+            border-radius: 12px;
+            padding: 8px 12px;
+            background-color: #ffffff;
+            outline: none;
+            transition: all 0.2s;
+        }
+        .cute-input:focus {
+            background-color: #fef08a;
+            transform: scale(1.02);
+        }
+        /* Custom styling for cute option selection card */
+        .option-card {
+            transition: all 0.2s ease-in-out;
+            border: 3px solid #0f172a;
+        }
+        .option-card:hover {
+            transform: translateY(-2px);
+            background-color: #f0f9ff;
+            box-shadow: 3px 3px 0px #0f172a;
+        }
+        /* Automatically styles the card when its nested radio button is checked */
+        .option-card:has(input:checked) {
+            background-color: #fef08a !important; /* Bright pastel yellow */
+            transform: translateY(-3px);
+            box-shadow: 5px 5px 0px #0f172a !important;
+        }
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-8px) rotate(2deg); }
+            100% { transform: translateY(0px) rotate(0deg); }
+        }
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-4px); }
+        }
+        .animate-float {
+            animation: float 4s ease-in-out infinite;
+        }
+        .animate-wave {
+            animation: wave 3s ease-in-out infinite;
+        }
+        /* Printable Adjustments */
+        @media print {
+            body {
+                background-color: white !important;
+                background-image: none !important;
+                color: black !important;
+            }
+            .no-print {
+                display: none !important;
+            }
+            .page-break {
+                page-break-before: always;
+            }
+            .cute-card {
+                border: 2px solid #000000 !important;
+                box-shadow: none !important;
+                background: white !important;
+                transform: none !important;
+            }
+            .cute-input {
+                border-bottom: 2px dashed #000000 !important;
+                border-top: none !important;
+                border-left: none !important;
+                border-right: none !important;
+                border-radius: 0 !important;
+                background-color: transparent !important;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Top Action Bar (Hide in Print) -->
+    <div class="no-print max-w-4xl mx-auto mb-6 bg-amber-100 border-4 border-slate-900 rounded-2xl p-4 flex flex-col md:flex-row justify-between items-center gap-4 shadow-[6px_6px_0px_#0f172a]">
+        <div class="flex items-center gap-3">
+            <span class="text-4xl animate-bounce">🎒</span>
+            <div>
+                <h2 class="font-cute text-lg font-bold text-slate-900">Hallo Anak Didikku yang Hebat!</h2>
+                <p class="text-xs text-slate-700">Yuk, ikuti petualangan geografi seru ini! Kamu bisa mengisi tantangan ini langsung secara digital atau mencetaknya ke kertas A4 bersama Bapak/Ibu Guru!</p>
+            </div>
+        </div>
+        <button onclick="window.print()" class="bg-emerald-400 hover:bg-emerald-300 active:translate-y-1 text-slate-900 font-cute font-bold py-2.5 px-5 rounded-xl border-3 border-slate-900 shadow-[4px_4px_0px_#0f172a] transition duration-150 flex items-center gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" />
+            </svg>
+            Cetak Lembar Seru Ini!
+        </button>
+    </div>
+
+    <!-- Main Paper Container -->
+    <div class="max-w-4xl mx-auto bg-white rounded-3xl p-6 sm:p-8 cute-card relative overflow-hidden">
+        
+        <!-- Background Decorative Circles -->
+        <div class="absolute -top-12 -right-12 w-32 h-32 bg-yellow-200 rounded-full opacity-60 no-print"></div>
+        <div class="absolute top-1/3 -left-16 w-32 h-32 bg-sky-200 rounded-full opacity-60 no-print"></div>
+        
+        <!-- Header: Passport to Adventure Style -->
+        <div class="border-b-4 border-slate-900 pb-6 mb-6 relative">
+            <div class="flex flex-col md:flex-row justify-between items-center text-center md:text-left gap-6">
+                <div class="flex flex-col md:flex-row items-center gap-4">
+                    <!-- Cute Earth / Compass SVG Badge -->
+                    <div class="w-20 h-20 bg-sky-100 border-4 border-slate-900 rounded-full flex items-center justify-center shadow-[4px_4px_0px_#0f172a] animate-float shrink-0">
+                        <svg class="w-12 h-12 text-sky-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                            <path d="M2 12h20" />
+                        </svg>
+                    </div>
+                    <div>
+                        <div class="inline-block bg-amber-300 text-slate-900 text-xs font-bold px-3 py-1 rounded-full border-2 border-slate-900 uppercase tracking-wider mb-2 font-cute">
+                            🚀 Misi Detektif Geografi
+                        </div>
+                        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-none">ASESMEN AWAL SERU!</h1>
+                        <p class="text-sm text-slate-600 mt-1 font-medium">Bab 1: Menjelajahi Posisi Strategis & Kekayaan Alam Indonesia</p>
+                        <p class="text-xs text-slate-500 font-bold mt-1">SMAN 1 Majalengka · Tahun Ajaran 2026/2027</p>
+                    </div>
+                </div>
+                
+                <div class="bg-emerald-100 p-4 rounded-2xl border-4 border-slate-900 shadow-[4px_4px_0px_#0f172a] text-center min-w-[200px] shrink-0 transform -rotate-1">
+                    <span class="text-xs font-cute font-bold text-slate-600 block uppercase tracking-wider">Zona Penjelajah</span>
+                    <span class="text-xl font-black text-emerald-800 font-cute">XI.7 s/d XI.11</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Biodata: "Paspor Penjelajah" Card -->
+        <div class="bg-amber-50 rounded-2xl border-4 border-slate-900 p-5 mb-8 shadow-[4px_4px_0px_#0f172a] relative">
+            <span class="absolute -top-3 left-6 bg-yellow-400 text-slate-900 px-3 py-0.5 rounded-full border-2 border-slate-900 text-xs font-bold font-cute">
+                📋 Paspor Penjelajah (Identitas)
+            </span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mt-2">
+                <div class="flex flex-col">
+                    <label class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nama Sang Penjelajah</label>
+                    <input type="text" placeholder="Ketik nama lengkapmu di sini..." class="cute-input text-sm font-semibold">
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Armada Kelas</label>
+                    <select class="cute-input text-sm font-semibold">
+                        <option value="">Pilih Kelas Kece-mu...</option>
+                        <option value="XI.7">🌍 XI.7 - Explorer</option>
+                        <option value="XI.8">🌍 XI.8 - Navigator</option>
+                        <option value="XI.9">🌍 XI.9 - Cartographer</option>
+                        <option value="XI.10">🌍 XI.10 - Geologist</option>
+                        <option value="XI.11">🌍 XI.11 - Voyager</option>
+                    </select>
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Nomor Sandi Absen</label>
+                    <input type="text" placeholder="Contoh: 07" class="cute-input text-sm font-semibold">
+                </div>
+                <div class="flex flex-col">
+                    <label class="text-xs font-bold text-slate-700 uppercase tracking-wider mb-1">Hari & Tanggal Petualangan</label>
+                    <input type="text" placeholder="Hari ini tanggal berapa ya?..." class="cute-input text-sm font-semibold">
+                </div>
+            </div>
+        </div>
+
+        <!-- Friendly Instructions -->
+        <div class="mb-8 p-4 bg-sky-100 border-3 border-slate-900 rounded-xl flex gap-3 text-sm text-sky-950">
+            <span class="text-2xl shrink-0">💡</span>
+            <div>
+                <strong>Aturan Main:</strong> Tenang saja, tes ini sama sekali <strong>tidak akan mengurangi nilai rapormu!</strong> Ini adalah kompas bagi Bapak/Ibu Guru untuk merancang kegiatan belajar geografi yang paling asyik, pas, dan nyaman buat kamu. Jawablah sejujur-jujurnya sesuai kata hatimu ya! Let's go!
+            </div>
+        </div>
+
+        <!-- SECTION 1: NON-COGNITIVE -->
+        <div class="mb-10">
+            <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2 mb-6">
+                <span class="bg-yellow-400 text-slate-900 border-2 border-slate-900 w-8 h-8 flex items-center justify-center rounded-full text-base shadow-[2px_2px_0px_#0f172a] font-cute">1</span>
+                Kondisi Hatiku & Gaya Belajarku (Non-Kognitif)
+            </h3>
+            
+            <div class="space-y-6">
+                <!-- Mood Picker -->
+                <div>
+                    <p class="text-sm font-bold text-slate-800 mb-3">A. Bagaimana sih perasaanmu hari ini sebelum kita memulai petualangan geografi baru?</p>
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                        <label class="flex flex-col items-center justify-center gap-2 p-3 border-3 border-slate-900 rounded-xl hover:bg-emerald-50 cursor-pointer transition active:translate-y-0.5 bg-white shadow-[3px_3px_0px_#0f172a]">
+                            <input type="radio" name="mood_cute" class="form-radio text-emerald-600 w-4 h-4">
+                            <span class="text-2xl animate-bounce" style="animation-delay: 0.1s">🥳</span>
+                            <span class="text-xs font-bold text-slate-700 text-center">Semangat Pol-polan!</span>
+                        </label>
+                        <label class="flex flex-col items-center justify-center gap-2 p-3 border-3 border-slate-900 rounded-xl hover:bg-blue-50 cursor-pointer transition active:translate-y-0.5 bg-white shadow-[3px_3px_0px_#0f172a]">
+                            <input type="radio" name="mood_cute" class="form-radio text-blue-600 w-4 h-4">
+                            <span class="text-2xl">🙂</span>
+                            <span class="text-xs font-bold text-slate-700 text-center">Biasa Aja, Santai</span>
+                        </label>
+                        <label class="flex flex-col items-center justify-center gap-2 p-3 border-3 border-slate-900 rounded-xl hover:bg-amber-50 cursor-pointer transition active:translate-y-0.5 bg-white shadow-[3px_3px_0px_#0f172a]">
+                            <input type="radio" name="mood_cute" class="form-radio text-amber-600 w-4 h-4">
+                            <span class="text-2xl">🥱</span>
+                            <span class="text-xs font-bold text-slate-700 text-center">Ngantuk/Mager Nih</span>
+                        </label>
+                        <label class="flex flex-col items-center justify-center gap-2 p-3 border-3 border-slate-900 rounded-xl hover:bg-rose-50 cursor-pointer transition active:translate-y-0.5 bg-white shadow-[3px_3px_0px_#0f172a]">
+                            <input type="radio" name="mood_cute" class="form-radio text-rose-600 w-4 h-4">
+                            <span class="text-2xl">🥺</span>
+                            <span class="text-xs font-bold text-slate-700 text-center">Lagi Capek/Cemas</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Learning Styles -->
+                <div>
+                    <p class="text-sm font-bold text-slate-800 mb-3">B. Biar belajarnya gampang masuk ke otak, kamu tipe yang mana kalau belajar fenomena dunia?</p>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <label class="flex gap-3 p-3 border-3 border-slate-900 rounded-xl hover:bg-violet-50 cursor-pointer bg-white shadow-[3px_3px_0px_#0f172a]">
+                            <input type="radio" name="style_cute" class="form-radio text-violet-600 mt-1 shrink-0">
+                            <div>
+                                <span class="text-sm font-bold text-violet-900 block font-cute">👀 Tipe Detektif Visual</span>
+                                <span class="text-xs text-slate-600 leading-relaxed">Suka melihat peta berwarna, infografis lucu, komik geografi, atau nonton video seru.</span>
+                            </div>
+                        </label>
+                        <label class="flex gap-3 p-3 border-3 border-slate-900 rounded-xl hover:bg-cyan-50 cursor-pointer bg-white shadow-[3px_3px_0px_#0f172a]">
+                            <input type="radio" name="style_cute" class="form-radio text-cyan-600 mt-1 shrink-0">
+                            <div>
+                                <span class="text-sm font-bold text-cyan-900 block font-cute">👂 Tipe Pendengar Hebat</span>
+                                <span class="text-xs text-slate-600 leading-relaxed">Lebih cepat nyambung lewat diskusi, mendengar penjelasan guru, atau podcast seru.</span>
+                            </div>
+                        </label>
+                        <label class="flex gap-3 p-3 border-3 border-slate-900 rounded-xl hover:bg-orange-50 cursor-pointer bg-white shadow-[3px_3px_0px_#0f172a]">
+                            <input type="radio" name="style_cute" class="form-radio text-orange-600 mt-1 shrink-0">
+                            <div>
+                                <span class="text-sm font-bold text-orange-900 block font-cute">🏃 Tipe Kreator Aktif</span>
+                                <span class="text-xs text-slate-600 leading-relaxed">Suka praktek langsung, bikin miniatur peta dari bubur kertas, atau tebak-tebakan interaktif.</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 2: COGNITIVE -->
+        <div class="mb-10">
+            <h3 class="text-xl font-bold text-slate-900 flex items-center gap-2 mb-6">
+                <span class="bg-sky-400 text-slate-900 border-2 border-slate-900 w-8 h-8 flex items-center justify-center rounded-full text-base shadow-[2px_2px_0px_#0f172a] font-cute">2</span>
+                Misi Tantangan Geografi (Asesmen Kognitif)
+            </h3>
+
+            <!-- Illustrative Cute Map Vector -->
+            <div class="mb-8 border-4 border-slate-900 rounded-2xl p-4 bg-sky-900 relative shadow-[4px_4px_0px_#0f172a] overflow-hidden">
+                <div class="absolute top-2 right-2 flex gap-1 no-print">
+                    <span class="w-3 h-3 bg-red-400 rounded-full border border-slate-900"></span>
+                    <span class="w-3 h-3 bg-yellow-400 rounded-full border border-slate-900"></span>
+                    <span class="w-3 h-3 bg-green-400 rounded-full border border-slate-900"></span>
+                </div>
+                <h4 class="font-cute text-sm font-bold text-sky-200 uppercase tracking-widest mb-3 text-center">🗺️ Peta Harta Karun: Posisi Silang Indonesia</h4>
+                
+                <!-- SVG Playful Illustration of Indonesian Cross Position -->
+                <div class="relative w-full aspect-[16/9] md:aspect-[2/1] bg-sky-950 rounded-xl border-3 border-slate-900 overflow-hidden shadow-inner flex items-center justify-center">
+                    <svg viewBox="0 0 800 400" class="w-full h-full">
+                        <!-- Playful Grid Pattern -->
+                        <g stroke="#38bdf8" stroke-width="0.75" stroke-dasharray="6" opacity="0.25">
+                            <line x1="0" y1="100" x2="800" y2="100" />
+                            <line x1="0" y1="200" x2="800" y2="200" /> <!-- Equator -->
+                            <line x1="0" y1="300" x2="800" y2="300" />
+                            <line x1="150" y1="0" x2="150" y2="400" />
+                            <line x1="300" y1="0" x2="300" y2="400" />
+                            <line x1="450" y1="0" x2="450" y2="400" />
+                            <line x1="600" y1="0" x2="600" y2="400" />
+                        </g>
+
+                        <!-- Smiling Clouds in Sky -->
+                        <g fill="#ffffff" opacity="0.8">
+                            <!-- Cloud 1 -->
+                            <path d="M 50,40 Q 60,30 75,35 Q 90,30 95,45 Q 110,45 105,55 Q 95,65 50,60 Z" />
+                            <circle cx="70" cy="48" r="1.5" fill="#000" />
+                            <circle cx="85" cy="48" r="1.5" fill="#000" />
+                            <path d="M 74,53 Q 77.5,56 81,53" stroke="#000" stroke-width="1" fill="none" />
+                            
+                            <!-- Cloud 2 -->
+                            <path d="M 700,70 Q 710,60 725,65 Q 740,60 745,75 Q 760,75 755,85 Q 745,95 700,90 Z" />
+                            <circle cx="720" cy="78" r="1.5" fill="#000" />
+                            <circle cx="735" cy="78" r="1.5" fill="#000" />
+                            <path d="M 724,83 Q 727.5,86 731,83" stroke="#000" stroke-width="1" fill="none" />
+                        </g>
+
+                        <!-- Cute Whale in Ocean -->
+                        <g transform="translate(680, 240) scale(0.7)" class="animate-wave">
+                            <!-- Water Fountain -->
+                            <path d="M 40,-10 Q 40,-30 25,-25" stroke="#38bdf8" stroke-width="2" fill="none" />
+                            <path d="M 40,-10 Q 45,-32 55,-23" stroke="#38bdf8" stroke-width="2" fill="none" />
+                            <!-- Body -->
+                            <path d="M 10,15 C 10,-10 70,-10 80,10 C 90,20 100,20 105,15 C 110,10 115,10 112,25 C 100,35 70,35 40,30 C 20,30 10,25 10,15 Z" fill="#38bdf8" stroke="#0f172a" stroke-width="2" />
+                            <!-- Eye -->
+                            <circle cx="35" cy="10" r="3" fill="#0f172a" />
+                            <!-- Cheek -->
+                            <circle cx="35" cy="15" r="3" fill="#f43f5e" opacity="0.6" />
+                            <!-- Fin -->
+                            <path d="M 50,22 Q 55,35 62,24 Z" fill="#0284c7" stroke="#0f172a" stroke-width="1.5" />
+                        </g>
+
+                        <!-- Equator Line Label -->
+                        <text x="10" y="195" fill="#fbbf24" font-size="12" font-family="Fredoka" font-weight="bold" opacity="0.9">Khatulistiwa (0°)</text>
+                        <line x1="0" y1="200" x2="800" y2="200" stroke="#fbbf24" stroke-width="3" stroke-dasharray="8,6" opacity="0.8"/>
+
+                        <!-- CONTINENTS (Playful Retro-Cartoon Shape Styles) -->
+                        <!-- BENUA ASIA -->
+                        <g transform="translate(70, 50)">
+                            <rect x="0" y="0" width="160" height="55" rx="15" fill="#fbcfe8" stroke="#0f172a" stroke-width="3" />
+                            <text x="80" y="33" fill="#0f172a" font-size="15" font-family="Fredoka" font-weight="bold" text-anchor="middle">🐼 BENUA ASIA</text>
+                        </g>
+
+                        <!-- BENUA AUSTRALIA -->
+                        <g transform="translate(560, 290)">
+                            <rect x="0" y="0" width="180" height="55" rx="15" fill="#fed7aa" stroke="#0f172a" stroke-width="3" />
+                            <text x="90" y="33" fill="#0f172a" font-size="14" font-family="Fredoka" font-weight="bold" text-anchor="middle">🦘 BENUA AUSTRALIA</text>
+                        </g>
+
+                        <!-- OCEANS -->
+                        <!-- SAMUDRA PASIFIK -->
+                        <g transform="translate(560, 50)">
+                            <rect x="0" y="0" width="180" height="55" rx="15" fill="#bae6fd" stroke="#0f172a" stroke-width="3" />
+                            <text x="90" y="33" fill="#0f172a" font-size="14" font-family="Fredoka" font-weight="bold" text-anchor="middle">🌊 SAMUDRA PASIFIK</text>
+                        </g>
+
+                        <!-- SAMUDRA HINDIA -->
+                        <g transform="translate(70, 290)">
+                            <rect x="0" y="0" width="180" height="55" rx="15" fill="#bae6fd" stroke="#0f172a" stroke-width="3" />
+                            <text x="90" y="33" fill="#0f172a" font-size="14" font-family="Fredoka" font-weight="bold" text-anchor="middle">⛵ SAMUDRA HINDIA</text>
+                        </g>
+
+                        <!-- Cute Tiny Cartoon Ship sailing on route -->
+                        <g transform="translate(480, 130) scale(0.6)" class="animate-float">
+                            <!-- Boat base -->
+                            <path d="M 10,25 L 70,25 L 60,40 L 20,40 Z" fill="#fbbf24" stroke="#0f172a" stroke-width="3" />
+                            <!-- Flagpole & Sails -->
+                            <line x1="40" y1="5" x2="40" y2="25" stroke="#0f172a" stroke-width="3" />
+                            <path d="M 40,5 L 15,18 L 40,18 Z" fill="#ef4444" stroke="#0f172a" stroke-width="2.5" />
+                        </g>
+
+                        <!-- Crossed Lines (Silang Merah) with Arrowheads -->
+                        <defs>
+                            <marker id="arrow" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                                <path d="M 0 0 L 10 5 L 0 10 z" fill="#ef4444" />
+                            </marker>
+                        </defs>
+                        <g opacity="0.95">
+                            <!-- Asia to Australia Line -->
+                            <line x1="160" y1="110" x2="640" y2="285" stroke="#ef4444" stroke-width="5" stroke-dasharray="10,8" marker-end="url(#arrow)" />
+                            <!-- Hindia to Pasifik Line -->
+                            <line x1="160" y1="285" x2="640" y2="110" stroke="#ef4444" stroke-width="5" stroke-dasharray="10,8" marker-end="url(#arrow)" />
+                        </g>
+
+                        <!-- Central Glowing Node (Indonesia) -->
+                        <g transform="translate(400, 195)">
+                            <!-- Soft glowing pulse background -->
+                            <circle r="45" fill="#4ade80" opacity="0.3" />
+                            <circle r="30" fill="#22c55e" stroke="#0f172a" stroke-width="3" />
+                            <text x="0" y="5" fill="#ffffff" font-size="11" font-family="Fredoka" font-weight="bold" text-anchor="middle">INDONESIA</text>
+                            
+                            <!-- Little heart icon over Indonesia to show love! -->
+                            <path d="M -5,-18 C -5,-21 -10,-21 -10,-18 C -10,-15 -5,-12 -5,-12 C -5,-12 0,-15 0,-18 C 0,-21 -5,-21 -5,-18 Z" fill="#ef4444" stroke="#0f172a" stroke-width="1" />
+                        </g>
+
+                        <!-- Cute Playful Compass Badge -->
+                        <g transform="translate(400, 325) scale(0.65)">
+                            <circle r="30" fill="#fef08a" stroke="#0f172a" stroke-width="3" />
+                            <line x1="0" y1="-30" x2="0" y2="30" stroke="#0f172a" stroke-width="2" />
+                            <line x1="-30" y1="0" x2="30" y2="0" stroke="#0f172a" stroke-width="2" />
+                            <!-- North / South pointer -->
+                            <polygon points="0,-25 6,0 0,2" fill="#ef4444" stroke="#0f172a" stroke-width="1.5" />
+                            <polygon points="0,25 -6,0 0,-2" fill="#94a3b8" stroke="#0f172a" stroke-width="1.5" />
+                            <text x="0" y="-35" fill="#0f172a" font-size="14" font-family="Fredoka" font-weight="bold" text-anchor="middle">U</text>
+                        </g>
+                    </svg>
+                </div>
+                <p class="text-xs text-sky-200 mt-3 text-justify leading-relaxed font-medium">
+                    *Yuk perhatikan gambar kartun peta di atas! Gambar ini menggambarkan betapa beruntungnya Indonesia yang berada persis di tengah-tengah **Posisi Silang (Cross Position)** jalur transportasi & perdagangan laut dunia. Menarik banget, ya!
+                </p>
+            </div>
+
+            <!-- Cognitive Test Questions -->
+            <div class="space-y-8">
+                
+                <!-- Question 1 -->
+                <div class="p-4 bg-sky-50 rounded-2xl border-3 border-slate-900 shadow-[3px_3px_0px_#0f172a]">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-sky-400 text-slate-900 text-xs font-bold font-cute px-3 py-1 rounded-full border-2 border-slate-900">
+                            🧭 Misi 1: Koordinat Langit
+                        </span>
+                    </div>
+                    <p class="text-sm font-bold text-slate-900 leading-relaxed">
+                        Secara astronomis, wilayah tercinta kita Indonesia terletak pada batas astronomis tertentu. Coba tebak mana koordinat letak astronomis Indonesia yang paling tepat di bawah ini?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                        <label class="option-card flex items-center gap-3 p-3 bg-white rounded-xl cursor-pointer">
+                            <input type="radio" name="q1_cute" class="form-radio text-amber-500 w-5 h-5 shrink-0">
+                            <span class="text-sm font-semibold text-slate-800">
+                                <strong>A.</strong> 6° LU – 11° LS dan 95° BT – 141° BT
+                            </span>
+                        </label>
+                        <label class="option-card flex items-center gap-3 p-3 bg-white rounded-xl cursor-pointer">
+                            <input type="radio" name="q1_cute" class="form-radio text-amber-500 w-5 h-5 shrink-0">
+                            <span class="text-sm font-semibold text-slate-800">
+                                <strong>B.</strong> 11° LU – 6° LS dan 95° BB – 141° BT
+                            </span>
+                        </label>
+                        <label class="option-card flex items-center gap-3 p-3 bg-white rounded-xl cursor-pointer">
+                            <input type="radio" name="q1_cute" class="form-radio text-amber-500 w-5 h-5 shrink-0">
+                            <span class="text-sm font-semibold text-slate-800">
+                                <strong>C.</strong> 6° LS – 11° LU dan 95° BT – 141° BB
+                            </span>
+                        </label>
+                        <label class="option-card flex items-center gap-3 p-3 bg-white rounded-xl cursor-pointer">
+                            <input type="radio" name="q1_cute" class="form-radio text-amber-500 w-5 h-5 shrink-0">
+                            <span class="text-sm font-semibold text-slate-800">
+                                <strong>D.</strong> 6° LU – 11° LS dan 95° BB – 141° BB
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 2 -->
+                <div class="p-4 bg-emerald-50 rounded-2xl border-3 border-slate-900 shadow-[3px_3px_0px_#0f172a]">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-emerald-400 text-slate-900 text-xs font-bold font-cute px-3 py-1 rounded-full border-2 border-slate-900">
+                            🚢 Misi 2: Raja Lautan Strategis
+                        </span>
+                    </div>
+                    <p class="text-sm font-bold text-slate-900 leading-relaxed">
+                        Berdasarkan ilustrasi "Peta Harta Karun" di atas, coba jelaskan dengan bahasamu sendiri yang seru: Mengapa posisi silang ini bikin Indonesia jadi sangat penting di mata dunia (khususnya untuk kapal-kapal besar yang lewat)?
+                    </p>
+                    <div class="mt-3">
+                        <textarea rows="4" placeholder="Tuliskan analisis hebatmu di sini ya..." class="w-full border-3 border-slate-900 rounded-xl p-3 text-sm focus:bg-yellow-50 outline-none font-semibold"></textarea>
+                    </div>
+                </div>
+
+                <!-- Question 3 -->
+                <div class="p-4 bg-amber-50 rounded-2xl border-3 border-slate-900 shadow-[3px_3px_0px_#0f172a]">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-amber-400 text-slate-900 text-xs font-bold font-cute px-3 py-1 rounded-full border-2 border-slate-900">
+                            💎 Misi 3: Pilah-Pilih Harta Bumi
+                        </span>
+                    </div>
+                    <p class="text-sm font-bold text-slate-900 leading-relaxed">
+                        Indonesia itu kaya sekali dengan Sumber Daya Alam (SDA). Ada yang kalau habis bisa dibikin lagi (terbarukan), ada juga yang butuh waktu jutaan tahun buat ada lagi (tidak terbarukan). Manakah di bawah ini kelompok SDA fosil berharga yang TIDAK DAPAT diperbarui?
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 mt-4">
+                        <label class="option-card flex items-center gap-3 p-3 bg-white rounded-xl cursor-pointer">
+                            <input type="radio" name="q3_cute" class="form-radio text-amber-500 w-5 h-5 shrink-0">
+                            <span class="text-sm font-semibold text-slate-800">A. Batubara dan Minyak Bumi</span>
+                        </label>
+                        <label class="option-card flex items-center gap-3 p-3 bg-white rounded-xl cursor-pointer">
+                            <input type="radio" name="q3_cute" class="form-radio text-amber-500 w-5 h-5 shrink-0">
+                            <span class="text-sm font-semibold text-slate-800">B. Panas Bumi (Geothermal) dan Air Berlimpah</span>
+                        </label>
+                        <label class="option-card flex items-center gap-3 p-3 bg-white rounded-xl cursor-pointer">
+                            <input type="radio" name="q3_cute" class="form-radio text-amber-500 w-5 h-5 shrink-0">
+                            <span class="text-sm font-semibold text-slate-800">C. Hembusan Angin dan Biomassa</span>
+                        </label>
+                        <label class="option-card flex items-center gap-3 p-3 bg-white rounded-xl cursor-pointer">
+                            <input type="radio" name="q3_cute" class="form-radio text-amber-500 w-5 h-5 shrink-0">
+                            <span class="text-sm font-semibold text-slate-800">D. Sinar Matahari Hangat dan Gas Alam</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Question 4 -->
+                <div class="p-4 bg-rose-50 rounded-2xl border-3 border-slate-900 shadow-[3px_3px_0px_#0f172a]">
+                    <div class="flex items-center gap-2 mb-2">
+                        <span class="bg-rose-400 text-slate-900 text-xs font-bold font-cute px-3 py-1 rounded-full border-2 border-slate-900">
+                            🌋 Misi 4: Detektif Gempa Majalengka
+                        </span>
+                    </div>
+                    <p class="text-sm font-bold text-slate-900 leading-relaxed">
+                        Wilayah kita di Majalengka dikenal memiliki struktur alam berbukit-bukit yang indah, tapi juga rawan bencana longsor dan gempa lokal. Menurut analisis geografismu, apa sih hubungannya letak geologis Indonesia (yang dikelilingi banyak lempeng tektonik aktif dan gunung berapi) dengan potensi kebencanaan di daerah kita?
+                    </p>
+                    <div class="mt-3">
+                        <textarea rows="4" placeholder="Yuk jelaskan kaitan lempeng tektonik dunia dengan kondisi tanah di tempat tinggal kita..." class="w-full border-3 border-slate-900 rounded-xl p-3 text-sm focus:bg-yellow-50 outline-none font-semibold"></textarea>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="page-break"></div>
+
+        <!-- SECTION 3: TEACHER EVALUATION AND REFLECTION (RUBRIK) -->
+        <div class="border-t-4 border-dashed border-slate-900 pt-8 mt-12">
+            <div class="bg-slate-900 text-white p-4 rounded-t-2xl flex items-center justify-between border-x-4 border-t-4 border-slate-900">
+                <h3 class="text-md font-cute font-bold tracking-wider">📝 Catatan & Rubrik Evaluasi Guru Hebat</h3>
+                <span class="text-2xl animate-float">🎓</span>
+            </div>
+            
+            <div class="overflow-x-auto border-x-4 border-b-4 border-slate-900 rounded-b-2xl bg-white">
+                <table class="min-w-full divide-y-4 divide-slate-900 text-xs">
+                    <thead class="bg-slate-100">
+                        <tr>
+                            <th class="px-4 py-3 text-left font-cute font-bold text-slate-800 uppercase tracking-wider border-r-3 border-slate-900">Indikator Petualang</th>
+                            <th class="px-4 py-3 text-left font-cute font-bold text-emerald-800 uppercase tracking-wider bg-emerald-50 border-r-3 border-slate-900">Sangat Siap (Paham Utuh)</th>
+                            <th class="px-4 py-3 text-left font-cute font-bold text-amber-800 uppercase tracking-wider bg-amber-50 border-r-3 border-slate-900">Siap (Paham Sebagian)</th>
+                            <th class="px-4 py-3 text-left font-cute font-bold text-rose-800 uppercase tracking-wider bg-rose-50">Belum Siap (Butuh Bimbingan)</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y-3 divide-slate-900 text-slate-700">
+                        <tr>
+                            <td class="px-4 py-3 font-bold bg-slate-50 border-r-3 border-slate-900">Letak Astronomis & Geografis</td>
+                            <td class="px-4 py-3 border-r-3 border-slate-900">Siswa dapat menjawab Misi 1 dengan benar serta menjelaskan analisis posisi strategis Misi 2 dengan sangat logis.</td>
+                            <td class="px-4 py-3 border-r-3 border-slate-900">Misi 1 dijawab benar, namun analisis logis pada Misi 2 masih kurang optimal/terlalu singkat.</td>
+                            <td class="px-4 py-3">Belum tepat dalam menjawab Misi 1 dan kesulitan berargumen pada Misi 2.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-bold bg-slate-50 border-r-3 border-slate-900">Potensi & Klasifikasi SDA</td>
+                            <td class="px-4 py-3 border-r-3 border-slate-900">Memahami pengelompokan SDA tak terbarukan (Misi 3) dan lancar mengklasifikasi contoh lainnya.</td>
+                            <td class="px-4 py-3 border-r-3 border-slate-900">Mampu menjawab Misi 3 dengan benar namun pemahaman konsep klasifikasi masih sering terbalik.</td>
+                            <td class="px-4 py-3">Jawaban Misi 3 keliru dan belum mengerti pembagian dasar jenis SDA bumi.</td>
+                        </tr>
+                        <tr>
+                            <td class="px-4 py-3 font-bold bg-slate-50 border-r-3 border-slate-900">Analisis Kebencanaan Lokal</td>
+                            <td class="px-4 py-3 border-r-3 border-slate-900">Mampu mengaitkan dinamika lempeng tektonik geologi dengan kerawanan bencana lokal di Majalengka secara runtut.</td>
+                            <td class="px-4 py-3 border-r-3 border-slate-900">Mengetahui jenis bencananya namun belum sukses mengaitkannya dengan struktur geologis regional.</td>
+                            <td class="px-4 py-3">Belum memahami apa itu lempeng tektonik maupun sebab kebencanaan di sekitarnya.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Follow-up Actions -->
+            <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="border-4 border-slate-900 rounded-2xl p-4 bg-amber-50 shadow-[3px_3px_0px_#0f172a]">
+                    <span class="font-cute text-sm font-bold text-slate-800 uppercase block mb-3">🧭 Rencana Tindak Lanjut Guru Hebat:</span>
+                    <div class="space-y-2 text-xs font-semibold text-slate-700">
+                        <label class="flex items-center gap-2 cursor-pointer hover:text-indigo-600">
+                            <input type="checkbox" class="form-checkbox text-indigo-600 border-2 border-slate-900 rounded">
+                            <span>Siswa diberikan tantangan ekspedisi mandiri (Materi Pengayaan).</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:text-indigo-600">
+                            <input type="checkbox" class="form-checkbox text-indigo-600 border-2 border-slate-900 rounded">
+                            <span>Gabungkan siswa dalam tim "Tutor Sebaya" navigasi peta.</span>
+                        </label>
+                        <label class="flex items-center gap-2 cursor-pointer hover:text-indigo-600">
+                            <input type="checkbox" class="form-checkbox text-indigo-600 border-2 border-slate-900 rounded">
+                            <span>Berikan petunjuk dasar terpisah untuk materi prasyarat.</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="border-4 border-slate-900 rounded-2xl p-4 flex flex-col justify-between bg-emerald-50 shadow-[3px_3px_0px_#0f172a]">
+                    <div>
+                        <span class="font-cute text-sm font-bold text-slate-800 uppercase block mb-1">Paraf Guru Pengampu</span>
+                        <p class="text-[10px] text-slate-500 font-bold">Geografi Kelas XI - SMAN 1 Majalengka</p>
+                    </div>
+                    <div class="border-t-2 border-dashed border-slate-400 pt-2 text-center mt-6">
+                        <div class="h-12 no-print"></div> <!-- Space for physical signature on printout -->
+                        <p class="text-xs font-bold text-slate-800 underline">Winda Noer Fajarwati, S.Pd., Gr.</p>
+                        <p class="text-[10px] text-slate-500 font-bold mt-1">NIP. 199509062023212021</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
